@@ -1,0 +1,10 @@
+WITH GastoPorCliente AS (
+    SELECT ClienteKey, SUM(Valor_Total_Pedido) AS Total_Gasto
+    FROM Pedido
+    GROUP BY ClienteKey
+)
+SELECT c.Nome AS Cliente, g.Total_Gasto
+FROM GastoPorCliente g
+JOIN Cliente c ON g.ClienteKey = c.ClienteKey
+ORDER BY Total_Gasto DESC
+LIMIT 1;

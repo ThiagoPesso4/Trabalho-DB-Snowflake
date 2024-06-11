@@ -1,0 +1,12 @@
+WITH ClientesSobremesaPorAno AS (
+    SELECT c.Empresa, p.Ano, COUNT(DISTINCT c.ClienteKey) AS Total_Clientes_Sobremesa
+    FROM Cliente c
+    JOIN Pedido p ON c.ClienteKey = p.ClienteKey
+    JOIN Prato pr ON p.Prato = pr.Prato
+    WHERE pr.Tipo = 'Sobremesa'
+    GROUP BY c.Empresa, p.Ano
+)
+SELECT Empresa, Ano, Total_Clientes_Sobremesa
+FROM ClientesSobremesaPorAno
+ORDER BY Ano, Total_Clientes_Sobremesa DESC
+LIMIT 1;

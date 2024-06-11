@@ -1,0 +1,13 @@
+WITH PessoasPorAno AS (
+    SELECT ClienteKey, Ano, SUM(Quantidade) AS Total_Pessoas
+    FROM Pedido
+    GROUP BY ClienteKey, Ano
+)
+SELECT c.Nome AS Cliente, p.Ano, p.Total_Pessoas
+FROM PessoasPorAno p
+JOIN Cliente c ON p.ClienteKey = c.ClienteKey
+WHERE (p.Ano, p.Total_Pessoas) IN (
+    SELECT Ano, MAX(Total_Pessoas)
+    FROM PessoasPorAno
+    GROUP BY Ano
+);

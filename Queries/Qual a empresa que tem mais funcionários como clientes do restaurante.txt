@@ -1,0 +1,5 @@
+SELECT Empresa, COUNT(DISTINCT ClienteKey) AS Total_Clientes
+FROM Cliente
+GROUP BY Empresa
+ORDER BY Total_Clientes DESC
+LIMIT 1;
